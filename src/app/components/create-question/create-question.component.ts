@@ -155,7 +155,7 @@ export class CreateQuestionComponent implements OnInit {
 
   handleImageInput(event: any) {
     const photo: File = event.target.files.item(0);
-    console.log(photo);
+    // console.log(photo);
      this.fileService.uploadImage(photo).subscribe(data=>{
        this.associatedPictureName?.patchValue(data['imageFileName']);
      })
