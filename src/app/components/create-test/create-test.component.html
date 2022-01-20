@@ -1,0 +1,33 @@
+<!--<p>create-test works!</p>-->
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <form class="card" [formGroup]="createTestForm">
+      <div class="card-body">
+
+        <div class="form-floating mb-4">
+          <input type="number" formControlName="variant" id="variant" class="form-control" placeholder="enter variant" required>
+          <label for="variant">Variant:</label>
+        </div>
+
+        <div class="form-floating mb-4">
+          <select (change)="loadQuestionsByChosenTestSubject($event)" formControlName="testSubject" id="testSubject" class="form-select">
+            <option *ngFor="let testSubject of testSubjects" [ngValue]="testSubject">{{testSubject.subject}}</option>
+          </select>
+          <label for="testSubject">Choose subject of test: </label>
+        </div>
+
+        <div formArrayName="questions" *ngIf="testSubject?.valid">
+          <div class="form-floating mb-4" *ngFor="let question of questions.controls; let i=index">
+            <input type="text" [formControlName]="i">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-footer">
+
+      </div>
+    </form>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TestsService} from "../../services/tests.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Test} from "../../models/test";
+import {DoTestService} from "../../services/do-test.service";
 
 @Component({
   selector: 'app-tests',
@@ -12,7 +13,7 @@ export class TestsComponent implements OnInit {
 
   tests: Test[] = [];
 
-  constructor(private testService: TestsService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private doTestService: DoTestService, private testService: TestsService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -26,8 +27,11 @@ export class TestsComponent implements OnInit {
     });
   }
 
-  startTest(testId: bigint): void{
-    this.router.navigate(['do/test', testId]);
+  startTest(testId: bigint | undefined): void{
+
+    this.doTestService.startTest(testId).subscribe(test=>{
+      this.router.navigate(['do/test', test.sessionId, 0, ]);
+    });
   }
 
 }

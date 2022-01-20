@@ -1,11 +1,7 @@
 import {BaseEntity} from "./base.entity";
 
-export class TestSubject extends BaseEntity {
-  subject: string | undefined;
-  description: string | undefined;
+export interface TestSubject extends BaseEntity {
+  subject: string ;
+  description: string;
 
-
-  constructor() {
-    super();
-  }
 }

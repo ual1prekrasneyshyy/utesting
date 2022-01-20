@@ -1,3 +1,7 @@
-<div class="list-group">
-  <a (click)="startTest(test.id)" class="list-group-item" *ngFor="let test of tests">Variant {{test.id}}: {{test.questions.length}} questions</a>
-</div>
+<ul class="list-group" *ngIf="tests.length>0">
+  <li *ngFor="let test of tests" class="list-group-item">
+    <a (click)="startTest(test.id)">Variant {{test.variant}}:
+      <span *ngIf="test.questions">{{test.questions.length}}</span>
+      questions</a>
+  </li>
+</ul>

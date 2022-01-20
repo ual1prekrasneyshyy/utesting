@@ -22,7 +22,7 @@ export class TestSubjectsComponent implements OnInit {
     })
   }
 
-  openTest(testSubjectId: bigint): void{
+  openTest(testSubjectId: bigint | undefined): void{
     this.router.navigate(['test', testSubjectId]);
   }
 

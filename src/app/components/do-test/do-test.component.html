@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-10 offset-1">
+    <nav aria-label="...">
+      <ul class="pagination justify-content-center">
+        <!--      <li class="page-item disabled">-->
+        <!--        <a class="page-link" href="#" tabindex="-1">Previous</a>-->
+        <!--      </li>-->
+        <li *ngFor="let question of doTest.questions; let i=index" class="{{
+       questionIndex==i ? 'page-item active' : 'page-item'}}">
+          <a class="page-link" [routerLink]="['/do/test', testSessionId ,i]" [routerLinkActive]="['active']" >
+            <!--           (click)="questionIndex=i">-->
+
+            <span class="{{question.points==1 ? 'text-success' : question.passed==0? 'text-auto' : question.points==0? 'text-danger' : 'text-orange'}}">
+            {{question.orderPlace}}
+          </span>
+<!--            <span class="sr-only">(current)</span>-->
+          </a>
+        </li>
+        <li class="{{questionIndex===-1 ? 'page-item active' : 'page-item'}}" *ngIf="doTest.passed===1">
+          <a class="page-link" [routerLink]="['/do/test', testSessionId, -1]">View Result</a>
+        </li>
+      </ul>
+    </nav>
+
+    <form (ngSubmit)="submitAnswerToQuestion()" [formGroup]="answerToQuestionForm" *ngIf="doTest&&questionIndex!==-1">
+
+      <div class="card">
+
+        <img *ngIf="imgResource" style="width: 100%" [src]="imgResource" class="card-img-top" alt="...">
+
+
+        <div class="card-body">
+          <h5 class="card-title">Вопрос №{{currentQuestion.orderPlace}}</h5>
+          <p class="card-text" [innerHTML]="currentQuestion.value"></p>
+
+          <div formArrayName="answers">
+            <div class="form-check" *ngFor="let answer of answers.controls; let i=index">
+
+
+              <!--            <input *ngIf="currentQuestion.passed===1" class="form-check-input" type="checkbox" [formControlName]="i" [disabled]="true">-->
+              <input (change)="checkOrUncheckAnswer(i)" class="form-check-input" type="checkbox" id="answer{{i+1}}" [formControlName]="i">
+
+              <label class="form-check-label" for="answer{{i+1}}" *ngIf="currentQuestion.passed===0">
+              <span>
+                {{currentQuestion.answers[i].orderPlace}}) {{currentQuestion.answers[i].value}}
+              </span>
+              </label>
+
+              <span *ngIf="currentQuestion.passed===1">
+
+              <span *ngIf="currentQuestion.answers[i].correct===0">
+                <span *ngIf="currentQuestion.answers[i].chosen===0">{{currentQuestion.answers[i].orderPlace}}) {{currentQuestion.answers[i].value}}</span>
+                <b class="text-danger" *ngIf="currentQuestion.answers[i].chosen===1">{{currentQuestion.answers[i].orderPlace}}) {{currentQuestion.answers[i].value}} <i class="fa fa-close text-danger"></i></b>
+              </span>
+              <span *ngIf="currentQuestion.answers[i].correct===1">
+                <b class="text-success" *ngIf="currentQuestion.answers[i].chosen===0">{{currentQuestion.answers[i].orderPlace}}) {{currentQuestion.answers[i].value}} <i class="fa fa-close text-danger"></i></b>
+                <b class="text-success" *ngIf="currentQuestion.answers[i].chosen===1">{{currentQuestion.answers[i].orderPlace}}) {{currentQuestion.answers[i].value}} <i class="fa fa-check text-success"></i> </b>
+              </span>
+
+            </span>
+
+
+            </div>
+          </div>
+
+          <div *ngIf="currentQuestion.passed===1">
+            <div class="text-success" *ngIf="currentQuestion.points==1">Correct answer!</div>
+            <div class="text-danger" *ngIf="currentQuestion.points==0">Wrong answer!</div>
+            <div class="text-orange" *ngIf="currentQuestion.points!=0&&currentQuestion.points!=1">
+              Partially correct answer! {{(currentQuestion.points*100).toFixed(0)}}%
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row" *ngIf="currentQuestion">
+          <div class="col-5" style="text-align: left">
+             <a href="Javascript:void(0)" [hidden]="questionIndex===0" [routerLink]="['/do/test', this.testSessionId, questionIndex-1]" class="text-left btn btn-primary"><i class='fas fa-angle-double-left'></i> Предыдущий вопрос</a>
+          </div>
+          <div class="col-2" style="text-align: center">
+            <button [disabled]="currentQuestion.passed===1||answerToQuestionForm.invalid" class="btn btn-success" type="submit">Ответить</button>
+          </div>
+          <div class="col-5" style="text-align: right" *ngIf="doTest.questions">
+            <a href="Javascript:void(0)" [hidden]="questionIndex===doTest.questions.length-1" [routerLink]="['/do/test', this.testSessionId, 1+questionIndex]" class="text-right btn btn-primary">Следующий вопрос <i class='fas fa-angle-double-right'></i></a>
+          </div>
+
+
+        </div>
+      </div>
+<!--{{questionIndex}}-->
+    </form>
+
+
+    <form *ngIf="questionIndex!==-1" [formGroup]="submitTestAnswersForm" (ngSubmit)="submitTestAnswers()">
+      <div class="col-2 offset-5" style="text-align: center">
+        <button class="btn btn-success" [disabled]="doTest.passed===1||submitTestAnswersForm.invalid">Отправить</button>
+      </div>
+    </form>
+
+
+    <div *ngIf="questionIndex===-1">
+      <div *ngIf="doTest">
+        {{(doTest.totalPoints/doTest.allPoints*100).toFixed(0)}}%
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

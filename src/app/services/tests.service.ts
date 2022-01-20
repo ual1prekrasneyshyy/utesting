@@ -10,7 +10,7 @@ import {Test} from "../models/test";
 })
 export class TestsService {
 
-  private url = environment.apiUrl + "/tests/";
+  private url = environment.apiUrl + "tests/";
 
   constructor(private http: HttpClient) { }
 

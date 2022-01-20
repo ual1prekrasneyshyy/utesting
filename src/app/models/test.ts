@@ -2,13 +2,9 @@ import {BaseEntity} from "./base.entity";
 import {TestSubject} from "./test.subject";
 import {Question} from "./question";
 
-export class Test extends BaseEntity {
-  variant: number | undefined;
-  testSubject: TestSubject | undefined;
-  questions: Question[] | undefined;
+export interface Test extends BaseEntity {
+  variant: number;
+  testSubject: TestSubject;
+  questions: Question[];
 
-
-  constructor() {
-    super();
-  }
 }

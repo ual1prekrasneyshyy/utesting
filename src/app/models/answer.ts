@@ -1,12 +1,9 @@
 import {BaseEntity} from "./base.entity";
 
-export class Answer extends BaseEntity {
-  orderPlace: number | undefined;
-  value: string | undefined;
-  correct: number | undefined;
+export interface Answer extends BaseEntity {
+  value: string;
+  correct: number;
 
-
-  constructor() {
-    super();
-  }
+  chosen: number;
+  orderPlace: number;
 }

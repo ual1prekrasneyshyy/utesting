@@ -1,9 +1,11 @@
 <div class="row">
   <div class="col s12">
     <div class="card" style="width: 100%">
-      <div class="list-group list-group-flush">
-        <a (click)="openTest(testSubject.id)" *ngFor="let testSubject of testSubjects" class="list-group-item">{{testSubject.subject}}: {{testSubject.description}}</a>
-      </div>
+      <ul class="list-group list-group-flush" *ngIf="testSubjects.length>0">
+        <li *ngFor="let testSubject of testSubjects" class="list-group-item">
+          <a (click)="openTest(testSubject.id)">{{testSubject.subject}}: {{testSubject.description}}</a>
+        </li>
+      </ul>
       <div class="card-footer">
 <!--        Card footer-->
       </div>

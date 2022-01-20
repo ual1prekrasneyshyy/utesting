@@ -1,10 +1,7 @@
-export class BaseEntity {
-  public id: bigint | undefined;
-  public createdAt: Date | undefined;
-  public updatedAt: Date | undefined;
-  public deletedAt: Date | undefined;
+export interface BaseEntity {
+  id: bigint;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 
-
-  constructor() {
-  }
 }

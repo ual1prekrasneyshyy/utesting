@@ -2,14 +2,14 @@ import {BaseEntity} from "./base.entity";
 import {TestSubject} from "./test.subject";
 import {Answer} from "./answer";
 
-export class Question extends BaseEntity {
+export interface Question extends BaseEntity {
   orderPlace: number | undefined;
-  value: string | undefined;
-  answers: Answer[] | undefined;
-  testSubject: TestSubject | undefined;
+  value: string;
+  answers: Answer[];
+  testSubject: TestSubject;
+  associatedPictureName: string;
+  passed: number;
+  rightAnswers: number;
+  points: number;
 
-
-  constructor() {
-    super();
-  }
 }
