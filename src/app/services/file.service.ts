@@ -18,7 +18,7 @@ export class FileService {
     return this.http.post<any>(`${this.url}save/image`, formData);
   }
 
-  public viewImage(imageFileName: string): Observable<number[]>{
-    return this.http.get<number[]>(`${this.url}view/image/${imageFileName}`)
+  public viewImage(imageFileName: string): Observable<any>{
+    return this.http.get(`${this.url}view/image/${imageFileName}`)
   }
 }

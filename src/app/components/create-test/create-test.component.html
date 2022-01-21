@@ -18,6 +18,7 @@
         </div>
 
         <div formArrayName="questions" *ngIf="testSubject?.valid">
+          <div cdkDrag>Hi</div>
           <div class="form-floating mb-4" *ngFor="let question of questions.controls; let i=index">
             <input type="text" [formControlName]="i">
           </div>
