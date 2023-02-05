@@ -24,9 +24,7 @@
         <label for="value">Question:</label>
         <span *ngIf="value?.invalid&&(value?.touched||value?.dirty)">
           <span *ngIf="value?.errors?.required" class="text-danger">Text of question is required!</span>
-<!--          Error-->
         </span>
-<!--        {{value?.valid}}-->
       </div>
 
       <div formArrayName="answers">
@@ -35,13 +33,8 @@
           <div *ngIf="answers?.errors?.minlength" class="text-danger">There should be no less that 2 answers</div>
           <div *ngIf="answers?.errors?.maxlength" class="text-danger">There should be no more than 8 answers</div>
         </div>
-
-<!--        cdkDropList (cdkDropListDropped)="changeOrderOfAnswers($event)"-->
         <div >
-
-<!--          cdkDrag-->
           <div  *ngFor="let answer of answers.controls; let i=index" [formGroupName]="i">
-
             <div class="input-group mb-4">
               <div class="input-group-text">
                 <input formControlName="correct" class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
@@ -52,22 +45,14 @@
               </div>
               <button type="button" (click)="deleteAnswer(i)" class="btn btn-danger">-</button>
               <span *ngIf="answer.get('value')?.invalid&&(answer.get('value')?.touched||answer.get('value')?.dirty)">
-              <span *ngIf="answer.get('value')?.errors?.required" class="text-danger">Answer is required!</span>
-            </span>
+                <span *ngIf="answer.get('value')?.errors?.required" class="text-danger">Answer is required!</span>
+              </span>
             </div>
           </div>
         </div>
       </div>
-
       <button type="button" (click)="addNewAnswerForm()" class="btn btn-success">+</button>
       <button type="submit" [disabled]="createQuestionForm.invalid" class="btn btn-primary">SAVE</button>
-
     </form>
-
-
   </div>
 </div>
-
-<!--<div cdkDrag>-->
-<!--  <div cdkDrag>Hello!</div>-->
-<!--</div>-->

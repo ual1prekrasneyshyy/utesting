@@ -25,7 +25,6 @@ import {FileService} from "../../services/file.service";
 })
 export class CreateQuestionComponent implements OnInit {
 
-  orderPlaceForAnswer = 0;
   testSubjects: TestSubject[] = [];
   createQuestionForm = this.formBuilder.group({
     value: ['', Validators.required],
@@ -67,7 +66,6 @@ export class CreateQuestionComponent implements OnInit {
       return this.formBuilder.group({
         value: ['', Validators.required],
         correct: [false],
-        orderPlace: [++this.orderPlaceForAnswer]
     });
 
 
@@ -90,8 +88,6 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   submitQuestionAddingForm() {
-
-
     for(let answerForm of this.answers.controls){
       answerForm.get('correct')?.patchValue(answerForm.get('correct')?.value ? 1 : 0);
     }
@@ -165,7 +161,4 @@ export class CreateQuestionComponent implements OnInit {
     return this.createQuestionForm.get('associatedPictureName');
   }
 
-  submitPhoto() {
-
-  }
 }

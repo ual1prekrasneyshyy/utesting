@@ -2,31 +2,50 @@
 
 <div class="row">
   <div class="col-8 offset-2">
-    <form class="card" [formGroup]="createTestForm">
+    <form class="card" [formGroup]="createTestForm" (ngSubmit)="submitCreateTestForm()">
       <div class="card-body">
 
         <div class="form-floating mb-4">
-          <input type="number" formControlName="variant" id="variant" class="form-control" placeholder="enter variant" required>
-          <label for="variant">Variant:</label>
-        </div>
-
-        <div class="form-floating mb-4">
-          <select (change)="loadQuestionsByChosenTestSubject($event)" formControlName="testSubject" id="testSubject" class="form-select">
+          <select (change)="loadTestSubjectData($event)" formControlName="testSubject" id="testSubject" class="form-select">
             <option *ngFor="let testSubject of testSubjects" [ngValue]="testSubject">{{testSubject.subject}}</option>
           </select>
           <label for="testSubject">Choose subject of test: </label>
         </div>
 
-        <div formArrayName="questions" *ngIf="testSubject?.valid">
-<!--          <div cdkDrag>Hi</div>-->
-          <div class="form-floating mb-4" *ngFor="let question of questions.controls; let i=index">
-            <input type="text" [formControlName]="i">
+        <div class="form-floating mb-4">
+          <input type="number" formControlName="variant" id="variant" class="form-control" placeholder="enter variant" required>
+          <label for="variant">Variant:</label>
+
+          <div *ngIf="variant?.invalid && (variant?.touched || variant?.dirty)" class="text-danger">
+            <span *ngIf="variant?.errors?.required">Field variant required</span>
+            <span *ngIf="variant?.hasError('variantExistsError')">Variant {{variant?.value}} exists!</span>
+
           </div>
         </div>
+
+
+
+        <div *ngIf="testSubject?.valid" class="form-group" formArrayName="questions">
+          <h4 class="text-primary">Choose Questions</h4>
+
+          <div *ngIf="questions?.invalid">
+<!--            <span class="text-danger">Select at least five questions</span>-->
+          </div>
+            <div class="form-floating mb-4" *ngFor="let question of questions.controls; let i=index">
+              <select [formControlName]="i" id="question+{{i}}" class="form-select" aria-label="Default select example">
+                <option *ngFor="let q of availableQuestions" [ngValue]="q">{{q.value}}</option>
+              </select>
+              <label for="question+{{i}}">Question:</label>
+              <a (click)="deleteQuestion(i)" class="btn btn-danger">-</a>
+            </div>
+          </div>
+
+
 
       </div>
 
       <div class="card-footer">
+        <button [disabled]="createTestForm.invalid" type="submit" class="btn btn-success">ADD</button>
 
       </div>
     </form>

@@ -34,5 +34,12 @@ export class TestsService {
     return this.http.get<Test>(`${this.url}${testId}`);
   }
 
+  public getTestByVariantAndTestSubjectId(variant: number, testSubjectId: bigint): Observable<Test>{
+    return this.http.get<Test>(`${this.url}${variant}/variant?testSubjectId=${testSubjectId}`)
+  }
+
+  public addTest(test: Test): Observable<Test> {
+    return this.http.post<Test>(this.url, test)
+  }
 
 }

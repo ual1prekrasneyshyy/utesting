@@ -68,7 +68,7 @@ export class DoTestComponent implements OnInit {
 
         if(this.currentQuestion.associatedPictureName){
           this.fileService.viewImage(this.currentQuestion.associatedPictureName).subscribe(data=>{
-            // console.log(data);
+
             this.imgResource = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + data);
           }, err=>{
             console.log(err)
