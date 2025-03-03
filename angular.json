@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UTesting": {
+    "u-testing-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/UTesting",
+            "outputPath": "dist/u-testing-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "UTesting:build:production"
+              "browserTarget": "u-testing-front:build:production"
             },
             "development": {
-              "browserTarget": "UTesting:build:development"
+              "browserTarget": "u-testing-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "UTesting:build"
+            "browserTarget": "u-testing-front:build"
           }
         },
         "test": {
@@ -104,6 +104,5 @@
         }
       }
     }
-  },
-  "defaultProject": "UTesting"
+  }
 }
