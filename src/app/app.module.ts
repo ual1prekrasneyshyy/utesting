@@ -13,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CreateQuestionComponent } from './components/create-question/create-question.component';
 import { DoTestComponent } from './components/do-test/do-test.component';
 import { CreateTestComponent } from './components/create-test/create-test.component';
-// import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { CreateTestComponent } from './components/create-test/create-test.compon
       EditorModule,
       FormsModule,
       ReactiveFormsModule,
-      // DragDropModule
+      DragDropModule
     ],
   providers: [],
   bootstrap: [AppComponent]
